@@ -15,5 +15,7 @@ public class hotel_test {
         String n = "test";
         n = null;
         System.out.println(n);
+
+        System.out.println("test \n test");
     }
 }

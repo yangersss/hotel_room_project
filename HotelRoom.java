@@ -22,14 +22,27 @@ public class HotelRoom {
     }
 
     void checkOut(Person guest){
-
+        if (guestOne == guest){
+            guestOne = null;
+        }
+        else if (guestTwo == guest){
+            guestTwo = null;
+        }
     }
 
     int checkCapacity(){
-        return 0;
+        int c = 0;
+        if (guestOne != null){
+            c++;
+        }
+        if (guestTwo != null){
+            c++;
+        }
+        return c;
     }
 
     void printGuestInfo(){
-
+        System.out.println("Guest one: \nName " + guestOne.name + "\nHeight: " + guestOne.height + "\nAge: " + guestOne.age + "\nHair Color: " + guestOne.hairColor);
+        System.out.println("Guest two: \nName " + guestTwo.name + "\nHeight: " + guestTwo.height + "\nAge: " + guestTwo.age + "\nHair Color: " + guestTwo.hairColor);
     }
 }

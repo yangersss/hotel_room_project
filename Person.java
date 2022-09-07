@@ -1,7 +1,7 @@
 package hotel_room_project;
 
 public class Person {
-    Double height;
+    double height;
     int age;
     String name;
     String hairColor;

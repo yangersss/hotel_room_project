@@ -1,0 +1,32 @@
+class hotelRoom{
+    Person guestOne;
+    Person guestTwo;
+    int roomNumber = 420;
+    boolean checkIn = true;
+    boolean checkOut = true;
+}
+
+void checkIn(Person guest){
+
+}
+
+void checkOut(Person guest){
+
+}
+
+int checkCapacity(){
+    if(hotelRoom == 0){
+        System.out.println("The hotelRoom has 0 persons.")
+    }
+    
+    if(hotelRoom == 1){
+        System.out.println("The hotelRoom has 1 persons.")
+    }
+
+    if(hotelRoom == 2){
+        System.out.println("The hotelRoom has 2 person and has reached capacity.")
+    }
+
+void printGuestinfo(){
+
+}
