@@ -41,7 +41,8 @@ public class HotelRoom {
         return c;
     }
 
-    void printGuestInfo(){
+    void printGuestInfo(){ // add way to print "empty" if null
+        //loop through a arraylist?
         System.out.println("Guest one: \nName " + guestOne.name + "\nHeight: " + guestOne.height + "\nAge: " + guestOne.age + "\nHair Color: " + guestOne.hairColor);
         System.out.println("Guest two: \nName " + guestTwo.name + "\nHeight: " + guestTwo.height + "\nAge: " + guestTwo.age + "\nHair Color: " + guestTwo.hairColor);
     }
