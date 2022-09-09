@@ -9,16 +9,23 @@ public class hotelTests {
     }
 // Helper Methods // -------------------------------------------------//
     void printGuestNames(HotelRoom room){
-        System.out.println("--- In HotelRoom " + room.roomNumber +" :");
-        System.out.println("    guestOne is " + room.guestOne.name);
-        System.out.println("    guestTwo is " + room.guestTwo.name);
-        System.out.println("------------------------------------------");
+        System.out.println("\n--- Guests Currently In HotelRoom " + room.roomNumber +" :");
+        if(room.guestOne != null){
+            System.out.println("    guestOne is " + room.guestOne.name);
+        }
+        if(room.guestTwo != null){
+            System.out.println("    guestTwo is " + room.guestTwo.name);
+        }
+        if(room.guestOne==null && room.guestTwo==null){
+            System.out.println("    Empty");
+        }
+        System.out.println("\n");
     }
 
     // tests to see if person is checked into a hotel room
     boolean checkedInRoom(HotelRoom room, Person guest){
         if(room.guestOne!=guest && room.guestTwo!=guest){
-            System.out.println(guest.name + " was not checked in.");
+            System.out.println(guest.name + " is not checked in.");
             printGuestNames(room);
             return false;
         }
@@ -29,7 +36,7 @@ public class hotelTests {
     // Checks if a Person's constructor correctly assigned their attributes
     boolean properAttributes(Person guest, double h, int a, String n, String hC){
         boolean passed = true;
-        System.out.println("Verifying " + guest + " Constructor");
+        System.out.println("\nVerifying " + guest + " Constructor");
 
         // verifying height attribute
         if(guest.height == h){
@@ -77,7 +84,7 @@ public class hotelTests {
     }
     // Checks if a HotelRoom's constructor correctly assigned its attributes
     boolean properAttributes(HotelRoom room, int rN){
-        System.out.println("Verifying " + room + " Constructor");
+        System.out.println("\nVerifying " + room + " Constructor");
 
         if(room.roomNumber == rN){
             System.out.println("        Room " + room.roomNumber + " has been properly initialized.");
@@ -102,11 +109,12 @@ public class hotelTests {
 // Testing Methods ---------------------------------------------//
     // User types in 1,2,3 to run that specific test. All 3 must pass to receive full credit.
     void runTest(){
-        System.out.println("Type in 1, 2, or 3 to run a test. Type 'e' to exit.");
         String input = "";
         boolean passed = false;
         while(true){
+            System.out.println("\nType in 1, 2, or 3 to run a test. Type 'e' to exit.");
             input = input_scanner.nextLine();
+            System.out.println("--------------------------------------------------");
             switch(input){
                 case "1":
                     passed = runTestOne();
@@ -123,26 +131,33 @@ public class hotelTests {
                     System.out.println("Please enter in a valid input.");
             }
             if(passed){
+                System.out.println("- - - - - - - - - - - - - - - - - - - - - -");
                 System.out.println("Ran test " + input + " correctly.");
             }
             else{
                 System.out.println("failed test " + input + ".");
             }
+            System.out.println("--------------------------------------------------");
         }
     }
 
     // Testing checkIn and checkOut functions for errors
     boolean runTestOne(){
         System.out.println("Running Test 1...");
+        System.out.println("--------------------------------------------------");
         try{
             HotelRoom room_one = new HotelRoom(1);
             Person person_one = new Person(5.7, 16, "George", "Brown");
             Person person_two = new Person(3.4, 34, "Joe", "Purple");
 
+            System.out.println("\nChecking in " + person_one.name);
             room_one.checkIn(person_one);
+            System.out.println("\nChecking in " + person_two.name);
             room_one.checkIn(person_two);
 
+            System.out.println("\nChecking out " + person_one.name);
             room_one.checkOut(person_one);
+            System.out.println("\nChecking out " + person_two.name);
             room_one.checkOut(person_two);
             return true;
         }
@@ -155,6 +170,7 @@ public class hotelTests {
     // tests for people being checked in/out correctly
     boolean runTestTwo(){
         System.out.println("Running Test 2...");
+        System.out.println("--------------------------------------------------");
         try{
             boolean failure = false;
             HotelRoom room_one = new HotelRoom(2);
@@ -162,7 +178,9 @@ public class hotelTests {
             Person person_two = new Person(3.4, 34, "Joe", "Purple");
             
             // check in test
+            System.out.println("\nChecking in " + person_one.name);
             room_one.checkIn(person_one);
+            System.out.println("\nChecking in " + person_two.name);
             room_one.checkIn(person_two);
 
             if(!checkedInRoom(room_one, person_one)){
@@ -174,12 +192,14 @@ public class hotelTests {
 
             System.out.println("");
             // check out test
+            System.out.println("\nChecking out " + person_one.name);
             room_one.checkOut(person_one);
             if(checkedInRoom(room_one, person_one)){
                 System.out.print(person_one.name + " was not checked out properly.\n");
                 printGuestNames(room_one);
                 failure = true;
             }
+            System.out.println("\nChecking out " + person_two.name);
             room_one.checkOut(person_two);
             if(checkedInRoom(room_one, person_two)){
                 System.out.print(person_two.name + " was not checked out properly.\n");
@@ -189,9 +209,18 @@ public class hotelTests {
             System.out.println("");
             // third person check
             Person person_three = new Person(6.7, 280, "Old Bill", "Gray");
+            System.out.println("\nChecking in " + person_three.name);
             room_one.checkIn(person_three);
             if(!checkedInRoom(room_one, person_three)){
                 printGuestNames(room_one);
+                failure = true;
+            }
+            System.out.println("\nChecking in " + person_one.name);
+            room_one.checkIn(person_one);
+            System.out.println("\nChecking in " + person_two.name);
+            room_one.checkIn(person_two);
+            if(checkedInRoom(room_one, person_two)){
+                System.out.println(person_two.name + " should not be checked in as the room is at maximum capacity.");
                 failure = true;
             }
 
@@ -209,6 +238,7 @@ public class hotelTests {
     // Testing constructors, printGuestInfo and getCapacity
     boolean runTestThree(){
         System.out.println("Running Test 3...");
+        System.out.println("--------------------------------------------------");
         boolean failure = false;
         try{
             int realCapacity = 0;
@@ -228,21 +258,29 @@ public class hotelTests {
             // checkCapacity test
             failure = !(verifyCapacity(room_one, realCapacity) && failure);
 
+            System.out.println("\nChecking in " + person_one.name);
             room_one.checkIn(person_one);
             realCapacity++;
             failure = !(verifyCapacity(room_one, realCapacity) && failure);
 
+            System.out.println("\nChecking in " + person_two.name);
             room_one.checkIn(person_two);
             realCapacity++;
             failure = !(verifyCapacity(room_one, realCapacity) && failure);
 
+            System.out.println("\nChecking out " + person_one.name);
             room_one.checkOut(person_one);
+            realCapacity--;
+            failure = !(verifyCapacity(room_one, realCapacity) && failure);
+
+            System.out.println("\nChecking out " + person_two.name);
+            room_one.checkOut(person_two);
             realCapacity--;
             failure = !(verifyCapacity(room_one, realCapacity) && failure);
 
 
             // printGuestInfo test
-            System.out.println("Testing printGuestInfo(), IF NOTHING PRINTS OUT, IT FAILED regardless of whether or not it says it passed.");
+            System.out.println("\n\nTesting printGuestInfo(), IF NOTHING PRINTS OUT, IT FAILED regardless of whether or not it says test 3 passed.");
             room_one.checkIn(person_two);
             room_one.checkIn(person_one);
             room_one.printGuestInfo();
